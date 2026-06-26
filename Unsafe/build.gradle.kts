@@ -36,7 +36,9 @@ dependencies {
 
 mavenPublishing {
     publishToMavenCentral(automaticRelease = false)
-    signAllPublications()
+    if (!providers.gradleProperty("panamaPortSkipSigning").map { it.toBoolean() }.getOrElse(false)) {
+        signAllPublications()
+    }
     configure(
         AndroidMultiVariantLibrary(
             javadocJar = JavadocJar.Empty(),
