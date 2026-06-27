@@ -6,7 +6,7 @@ plugins {
 allprojects {
     // Honor a -Pversion override (e.g. JitPack injects the git ref as the
     // version); fall back to the fixed fork version for local publishing.
-    version = providers.gradleProperty("version").getOrElse("0.1.3-kanama-r8.1")
+    version = providers.gradleProperty("version").getOrElse("0.1.3-kanama-r8.2")
 }
 
 subprojects {
