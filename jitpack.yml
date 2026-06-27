@@ -1,0 +1,9 @@
+# JitPack build config for the Kanama PanamaPort fork.
+#
+# JitPack auto-injects -Pgroup (com.github.<user>) and -Pversion (the git ref)
+# into its default Gradle invocation; this fork honors both (see root
+# build.gradle.kts and each module's coordinates()). Signing is disabled on this
+# branch via gradle.properties (panamaPortSkipSigning=true) so the publication
+# does not require GPG .asc artifacts. JDK is pinned for reproducibility.
+jdk:
+  - openjdk21

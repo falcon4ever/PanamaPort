@@ -46,7 +46,9 @@ mavenPublishing {
     )
 
     coordinates(
-        groupId = "io.github.vova7878.panama",
+        // Honor a -Pgroup override (e.g. JitPack serves under com.github.<user>);
+        // fall back to the upstream group for local publishing.
+        groupId = providers.gradleProperty("group").getOrElse("io.github.vova7878.panama"),
         artifactId = "Core",
         version = project.version.toString()
     )
