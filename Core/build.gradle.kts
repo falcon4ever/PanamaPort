@@ -1,6 +1,4 @@
-import com.vanniktech.maven.publish.AndroidMultiVariantLibrary
-import com.vanniktech.maven.publish.JavadocJar
-import com.vanniktech.maven.publish.SourcesJar
+import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
 
 plugins {
     alias(libs.plugins.android.library)
@@ -39,14 +37,17 @@ mavenPublishing {
         signAllPublications()
     }
     configure(
-        AndroidMultiVariantLibrary(
-            javadocJar = JavadocJar.Empty(),
-            sourcesJar = SourcesJar.Sources()
+        AndroidSingleVariantLibrary(
+            variant = "release",
+            sourcesJar = true,
+            publishJavadocJar = false,
         )
     )
 
     coordinates(
-        groupId = "io.github.vova7878.panama",
+        // Honor a -Pgroup override (e.g. JitPack serves under com.github.<user>);
+        // fall back to the upstream group for local publishing.
+        groupId = providers.gradleProperty("group").getOrElse("io.github.vova7878.panama"),
         artifactId = "Core",
         version = project.version.toString()
     )
