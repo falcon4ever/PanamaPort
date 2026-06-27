@@ -1,8 +1,11 @@
 package com.v7878.foreign;
 
+import com.v7878.r8.annotations.DoNotShrinkType;
+
 import java.util.Objects;
 
 final class _LLVMStorageDescriptor {
+    @DoNotShrinkType
     public static sealed class LLVMStorage {
         public final MemoryLayout layout;
 
@@ -12,6 +15,7 @@ final class _LLVMStorageDescriptor {
     }
 
     // void or empty struct
+    @DoNotShrinkType
     public static final class NoStorage extends LLVMStorage {
         NoStorage(MemoryLayout layout) {
             super(layout);
@@ -19,6 +23,7 @@ final class _LLVMStorageDescriptor {
     }
 
     // primitive types
+    @DoNotShrinkType
     public static final class RawStorage extends LLVMStorage {
         RawStorage(MemoryLayout layout) {
             super(Objects.requireNonNull(layout));
@@ -27,6 +32,7 @@ final class _LLVMStorageDescriptor {
     }
 
     // struct with 'byval' or 'sret' attribute
+    @DoNotShrinkType
     public static final class MemoryStorage extends LLVMStorage {
         public final boolean add_attr;
 
@@ -38,6 +44,7 @@ final class _LLVMStorageDescriptor {
     }
 
     // struct in registers
+    @DoNotShrinkType
     public static final class WrapperStorage extends LLVMStorage {
         public final MemoryLayout wrapper;
 

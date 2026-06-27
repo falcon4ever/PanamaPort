@@ -3,6 +3,10 @@ plugins {
     alias(libs.plugins.maven.publish) apply false
 }
 
+allprojects {
+    version = "0.1.3-kanama-r8.1"
+}
+
 subprojects {
     afterEvaluate {
         if (plugins.hasPlugin("com.android.library")) {
