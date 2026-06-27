@@ -47,7 +47,7 @@ mavenPublishing {
     )
 
     coordinates(
-        groupId = "io.github.vova7878.panama",
+        groupId = providers.gradleProperty("group").getOrElse("io.github.vova7878.panama"),
         artifactId = "Unsafe",
         version = project.version.toString()
     )
