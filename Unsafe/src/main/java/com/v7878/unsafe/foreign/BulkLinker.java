@@ -1,7 +1,8 @@
 package com.v7878.unsafe.foreign;
 
 import static android.os.Build.VERSION.SDK_INT;
-import static android.os.Build.VERSION.SDK_INT_FULL;
+
+import static com.v7878.unsafe.ArtVersion.SDK_INT_FULL_COMPAT;
 import static com.v7878.dex.DexConstants.ACC_FINAL;
 import static com.v7878.dex.DexConstants.ACC_INTERFACE;
 import static com.v7878.dex.DexConstants.ACC_NATIVE;
@@ -620,7 +621,7 @@ public class BulkLinker {
     private static boolean checkConditions(Conditions cond) {
         return Utils.contains(cond.arch(), CURRENT_INSTRUCTION_SET) &&
                 (cond.min_api() <= SDK_INT && cond.max_api() >= SDK_INT) &&
-                (cond.min_api_full() <= SDK_INT_FULL && cond.max_api_full() >= SDK_INT_FULL) &&
+                (cond.min_api_full() <= SDK_INT_FULL_COMPAT && cond.max_api_full() >= SDK_INT_FULL_COMPAT) &&
                 (cond.min_art() <= ART_INDEX && cond.max_art() >= ART_INDEX) &&
                 checkPoisoning(cond.poisoning());
     }
