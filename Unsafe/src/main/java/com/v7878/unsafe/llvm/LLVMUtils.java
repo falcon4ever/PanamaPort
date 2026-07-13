@@ -123,7 +123,7 @@ public class LLVMUtils {
 
     public static MemorySegment generateFunctionCodeSegment(Generator generator, Arena scope) {
         try {
-            return NativeCodeBlob.makeCodeBlob(scope, generateCode(generator))[0];
+            return NativeCodeBlob.makeCodeBlobSingle(scope, generateCode(generator));
         } catch (LLVMException e) {
             throw shouldNotHappen(e);
         }

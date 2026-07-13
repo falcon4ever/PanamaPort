@@ -121,4 +121,16 @@ public class NativeCodeBlob {
         return makeCodeBlobChecked(arena, Arrays.stream(code)
                 .map(MemorySegment::ofArray).toArray(MemorySegment[]::new));
     }
+
+    // Single-blob entry point that never allocates a byte[][] at the call
+    // site: R8 collapses a one-element byte[]... varargs call into
+    // filled-new-array of [[B, and the ART interpreter below Android 13
+    // crashes on filled-new-array with an array component type (the reason
+    // newer R8 gates that instruction to API 33+). Callers with exactly one
+    // code blob must use this instead of the varargs overload.
+    public static MemorySegment makeCodeBlobSingle(Arena arena, byte[] code) {
+        Objects.requireNonNull(arena);
+        Objects.requireNonNull(code);
+        return makeCodeBlobChecked(arena, MemorySegment.ofArray(code))[0];
+    }
 }
