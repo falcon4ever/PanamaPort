@@ -11,6 +11,13 @@ import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 
 public class ArtVersion {
+    // Build.VERSION.SDK_INT_FULL only exists on Android 16+ (API 36); reading
+    // it on older devices throws NoSuchFieldError. Below 36, synthesize the
+    // identical encoding from SDK_INT. All full-api comparisons in this
+    // library must go through this constant, never the raw field.
+    public static final int SDK_INT_FULL_COMPAT =
+            SDK_INT >= 36 ? SDK_INT_FULL : SDK_INT * 100000;
+
     @ApiSensitive
     public static final int ART_INDEX = computeIndex();
 
@@ -73,7 +80,7 @@ public class ArtVersion {
     }
 
     private static int computeIndex() {
-        int tmp = SDK_INT_FULL;
+        int tmp = SDK_INT_FULL_COMPAT;
 
         if (tmp < 2600000) {
             throw new UnsupportedOperationException("SDK versions below 26 are not supported");
