@@ -15,8 +15,14 @@ subprojects {
             configure<com.android.build.api.dsl.LibraryExtension> {
                 enableKotlin = false
 
+                // Kanama fork: stay on compileSdk 36. AGP writes the library's
+                // compileSdk into the AAR metadata as minCompileSdk, and Kanama's
+                // consumers (its Android plugin AAR and Godot 4.7's generated
+                // Android Gradle project, AGP 8.6.1) compile against android-36,
+                // so a 37 here fails their checkAarMetadata. Nothing in the
+                // sources needs the API 37 stubs.
                 compileSdk {
-                    version = release(37)
+                    version = release(36)
                 }
 
                 defaultConfig {
